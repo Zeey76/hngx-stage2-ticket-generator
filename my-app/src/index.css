@@ -4,23 +4,37 @@
 
 body {
   background: #02191d;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem;
 }
 
 .header {
   background: hsla(191, 80%, 10%, 0.4);
 }
 
-
-
+.form-box {
+  background: radial-gradient(
+      circle at 14% 32%,
+      rgba(36, 160, 181, 0.2) 0%,
+      rgba(36, 160, 181, 0) 100%
+    ),
+    rgba(10, 12, 17, 0.1);
+}
 
 @media (min-width: 768px) {
-body {
+  body {
     background: radial-gradient(
         52.52% 32.71% at 50% 97.66%,
         rgba(36, 160, 181, 0.2) 0%,
         rgba(36, 160, 181, 0) 100%
       ),
       #02191d;
+  }
+  .nav-items {
+    display: flex;
+    flex-direction: row;
   }
 }
 
