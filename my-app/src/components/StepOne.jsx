@@ -1,12 +1,17 @@
 const StepOne = () => {
-    const ticketTypes = [
-        { id: 'regular', name: 'Regular Access', price: 'Free', available: '20/52' },
-        { id: 'vip', name: 'VIP Access', price: '$150', available: '20/52' },
-        { id: 'vvip', name: 'VVIP Access', price: '$150', available: '20/52' }
-      ];
-      const handleSubmit = (e) => {
-        e.preventDefault();
-      };
+  const ticketTypes = [
+    {
+      id: "regular",
+      name: "Regular Access",
+      price: "Free",
+      available: "20/52",
+    },
+    { id: "vip", name: "VIP Access", price: "$150", available: "20/52" },
+    { id: "vvip", name: "VVIP Access", price: "$150", available: "20/52" },
+  ];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="flex flex-col justify-center sm:p-6 gap-8 bg-[#08252B] sm:border sm:border-[#0E464F] sm:rounded-[32px] flex-none self-stretch">
       <div
@@ -32,14 +37,16 @@ const StepOne = () => {
       <div className=" h-[4px] bg-[#0E464F]"></div>
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-[32px]">
         <div className="flex flex-col gap-[8px]">
-        <label className="text-white" htmlFor="ticketType">Select Ticket Type:</label>
-        <div className="flex flex-col sm:flex-row justify-center items-center p-4 gap-4 bg-[#052228] border border-[#07373F] rounded-[24px]">
-        {ticketTypes.map((ticket) => (
+          <label className="text-white" htmlFor="ticketType">
+            Select Ticket Type:
+          </label>
+          <div className="flex flex-col sm:flex-row justify-center items-center p-4 gap-4 bg-[#052228] border border-[#07373F] rounded-[24px]">
+            {ticketTypes.map((ticket) => (
               <div key={ticket.id} className="relative w-full ">
                 <input
                   type="radio"
                   id={ticket.id}
-                  name="ticketType" 
+                  name="ticketType"
                   value={ticket.id}
                   className="sr-only peer"
                 />
@@ -49,38 +56,45 @@ const StepOne = () => {
                            hover:bg-[#2C545B] focus-within:ring-2 focus-within:ring-teal-400
                            relative"
                 >
-                  <span className="text-[24px] font-semibold mb-[12px] text-white">{ticket.price}</span>
-                  <span className="text-[16px] uppercase text-[#FAFAFA]">{ticket.name}</span>
-                  <span className="text-sm text-[#FAFAFA]">{ticket.available}</span>
-                  
-                  
+                  <span className="text-[24px] font-semibold mb-[12px] text-white">
+                    {ticket.price}
+                  </span>
+                  <span className="text-[16px] uppercase text-[#FAFAFA]">
+                    {ticket.name}
+                  </span>
+                  <span className="text-sm text-[#FAFAFA]">
+                    {ticket.available}
+                  </span>
                 </div>
               </div>
             ))}
-        </div>
+          </div>
         </div>
         <div className="flex flex-col gap-[8px]">
-        <label className="text-white" htmlFor="ticketQuantity">Number of Tickets</label>
-        <select
+          <label className="text-white" htmlFor="ticketQuantity">
+            Number of Tickets
+          </label>
+          <select
             id="ticketCount"
             className="w-full p-3 border bg-transparent rounded-[12px]  text-white
                      border-[#07373F]"
           >
-            {[1, 2, 3, 4, 5].map(num => (
-              <option key={num} value={num} className="bg-tra">{num}</option>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <option key={num} value={num} className="bg-tra">
+                {num}
+              </option>
             ))}
           </select>
         </div>
         <div className="flex flex-col sm:flex-row gap-[16px]">
-        <button className=" w-full   h-[48px] rounded-lg border border-[#24A0B5] text-[#24A0B5]">
-  Cancel
-</button>
+          <button className=" w-full   h-[48px] rounded-lg border border-[#24A0B5] text-[#24A0B5]">
+            Cancel
+          </button>
 
-        <button className=" w-full h-[48px] bg-[#24A0B5] rounded-lg text-white">
-  Next
-</button>
-</div>
-
+          <button className=" w-full h-[48px] bg-[#24A0B5] rounded-lg text-white">
+            Next
+          </button>
+        </div>
       </form>
     </div>
   );
