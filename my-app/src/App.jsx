@@ -1,17 +1,15 @@
-import Header from "./components/Header";
-import MainSection from "./components/MainSection";
+import { TicketProvider } from './components/context/TicketContext';
+import TicketBooking from './components/TicketBooking';
 import "./index.css";
 
-function App() {
+
+const App = () => {
   return (
-    <>
-       <Header/>
-
-        <MainSection/>
-
-
-    </>
+    <TicketProvider>
+      <TicketBooking />
+    </TicketProvider>
   );
-}
+};
+
 
 export default App;

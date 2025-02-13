@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://db.onlinewebfonts.com/c/1a5c2d8bbd4e28d99a6efcbb9a5b378f?family=JejuMyeongjo");
 
 body {
   background: #02191d;
@@ -24,9 +25,18 @@ body {
 }
 
 .ticket-box {
-  background: radial-gradient(50% 36.17% at 50% 103.25%, rgba(36, 160, 181, 0.5) 0%, rgba(36, 160, 181, 0.180876) 63.82%, rgba(36, 160, 181, 0) 100%),
-  radial-gradient(50% 13.92% at 50% 0%, rgba(36, 160, 181, 0.5) 0%, rgba(36, 160, 181, 0) 100%), 
-  #072C31;
+  background: radial-gradient(
+      50% 36.17% at 50% 103.25%,
+      rgba(36, 160, 181, 0.5) 0%,
+      rgba(36, 160, 181, 0.180876) 63.82%,
+      rgba(36, 160, 181, 0) 100%
+    ),
+    radial-gradient(
+      50% 13.92% at 50% 0%,
+      rgba(36, 160, 181, 0.5) 0%,
+      rgba(36, 160, 181, 0) 100%
+    ),
+    #072c31;
 }
 
 .cutout {
@@ -40,14 +50,34 @@ body {
 .cutout-circle {
   width: 30px;
   height: 30px;
-  background-color: #041E23; /* Match background */
+  background-color: #041e23; /* Match background */
   position: absolute;
   border-radius: 50%;
   mix-blend-mode: difference; /* Extends the background color */
 }
 
+.custom-scrollbar {
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
 
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 @media (min-width: 768px) {
   body {

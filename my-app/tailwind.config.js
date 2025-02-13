@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jeju: ['JejuMyeongjo', 'serif'],
+        roboto: ['Roboto', 'sans-serif'],
+        roadRage: ['"Road Rage"', 'cursive'],
+        alatsi: ["Alatsi", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 }
