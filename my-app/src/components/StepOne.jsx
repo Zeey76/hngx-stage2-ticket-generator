@@ -7,6 +7,7 @@ const StepOne = () => {
     setSelectedTicket,
     ticketCount,
     setTicketCount,
+    previousStep,
     nextStep
   } = useTicket();
   const firstRadioRef = useRef(null);
@@ -33,7 +34,7 @@ const StepOne = () => {
         break;
       case "ArrowDown":
         event.preventDefault();
-        selectRef.current.focus(); // Move to select
+        selectRef.current.focus();
         break;
       case "Enter":
         event.preventDefault();
@@ -241,6 +242,7 @@ const StepOne = () => {
                            : ""
                        }`}
             onKeyDown={handleButtonKeyDown}
+            onClick={() => previousStep()}
           >
             Cancel
           </button>

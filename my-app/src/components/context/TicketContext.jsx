@@ -1,26 +1,22 @@
-// contexts/TicketContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 
 const TicketContext = createContext();
 
 export const TicketProvider = ({ children }) => {
-  // Step One state
   const [selectedTicket, setSelectedTicket] = useState(
     localStorage.getItem("selectedTicket") || "regular"
   );
   const [ticketCount, setTicketCount] = useState(
     localStorage.getItem("ticketCount") || "1"
   );
-
-  // Step Two state
   const [file, setFile] = useState(localStorage.getItem("file") || null);
   const [name, setName] = useState(localStorage.getItem("name") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [request, setRequest] = useState(localStorage.getItem("request") || "");
   const [error, setError] = useState({ file: "", name: "", email: "" });
-
-  // Additional state for managing steps
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(
+    parseInt(localStorage.getItem("currentStep")) || 1
+  );
   const [isBookingComplete, setIsBookingComplete] = useState(false);
 
   // Persist state to localStorage
@@ -31,7 +27,8 @@ export const TicketProvider = ({ children }) => {
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
     localStorage.setItem("request", request);
-  }, [selectedTicket, ticketCount, file, name, email, request]);
+    localStorage.setItem("currentStep", currentStep);
+  }, [selectedTicket, ticketCount, file, name, email, request, currentStep]);
 
   // Validation functions
   const validateStepOne = () => {
@@ -75,6 +72,8 @@ export const TicketProvider = ({ children }) => {
   const previousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    } else if (currentStep === 1) {
+      resetBooking();
     }
   };
 
@@ -99,13 +98,10 @@ export const TicketProvider = ({ children }) => {
   };
 
   const value = {
-    // Step One state
     selectedTicket,
     setSelectedTicket,
     ticketCount,
     setTicketCount,
-
-    // Step Two state
     file,
     setFile,
     name,
@@ -116,8 +112,6 @@ export const TicketProvider = ({ children }) => {
     setRequest,
     error,
     setError,
-
-    // Navigation state and functions
     currentStep,
     setCurrentStep,
     isBookingComplete,

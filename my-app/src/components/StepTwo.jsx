@@ -109,7 +109,7 @@ const StepTwo = () => {
         <div className="h-[200px] flex flex-row justify-center items-center sm:bg-black/20 relative">
           <label
             htmlFor="file-upload"
-            className="w-full sm:w-[240px] h-[240px] flex flex-col justify-center items-center gap-4 bg-[#0E464F] border-4 border-[#24A0B5]/50 rounded-[32px] cursor-pointer relative group"
+            className="sm:w-[240px] w-[240px] h-[240px] flex flex-col justify-center items-center gap-4 bg-[#0E464F] border-4 border-[#24A0B5]/50 rounded-[32px] cursor-pointer relative group"
             tabIndex="0"
           >
             <input
