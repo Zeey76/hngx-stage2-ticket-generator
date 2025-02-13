@@ -211,7 +211,7 @@ const StepOne = () => {
           <select
             id="ticketCount"
             ref={selectRef}
-            className="w-full p-3 border bg-[#052228] text-white rounded-[12px] border-[#07373F] 
+            className="w-full p-3 appearance-none border bg-[#052228] text-white rounded-[12px] border-[#07373F] 
                      focus:ring-2 focus:ring-teal-400 focus:outline-none"
             onKeyDown={handleSelectKeyDown}
             onChange={handleSelectChange}
@@ -235,7 +235,7 @@ const StepOne = () => {
             ref={cancelButtonRef}
             type="button"
             className={`w-full h-[48px] outline-none rounded-lg border border-[#24A0B5] text-[#24A0B5] 
-                       hover:bg-[#24A0B5] hover:text-white focus:ring-2 focus:ring-teal-400 
+                       hover:bg-[#12464E] hover:text-white focus:ring-2 focus:ring-teal-400 
                        ${
                          selectedButton === cancelButtonRef
                            ? "bg-[#24A0B5] text-white"

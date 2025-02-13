@@ -78,7 +78,7 @@ const Ticket = () => {
           {/* <div className="absolute w-[30px] h-[30px] rounded-full top-[-10px] bg-[#041E23]  left-[-10px] border-r-[1px] rotate-45 border-[#24A0B5]"></div> */}
         </div>
         <div className="w-full h-[109px] flex items-center justify-center">
-          <img src="./barcode.gif" className="w-[236px] h-[68px] mx-auto" />
+          <img src="./barcode.svg" className="w-[236px] h-[68px] mx-auto" />
         </div>
       </div>
     </div>

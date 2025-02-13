@@ -16,7 +16,7 @@ const StepThree = () => {
       <div className="flex flex-col gap-[24px]">
         <Ticket />
         <div className="flex flex-col sm:flex-row gap-[16px] font-jeju">
-          <button className=" w-full  h-[48px] rounded-lg border outline-none hover:bg-[#24A0B5] hover:text-white border-[#24A0B5] text-[#24A0B5]" onClick={resetBooking}>
+          <button className=" w-full  h-[48px] rounded-lg border outline-none hover:bg-[#12464E] hover:text-white border-[#24A0B5] text-[#24A0B5]" onClick={resetBooking}>
             Book Another Ticket
           </button>
 

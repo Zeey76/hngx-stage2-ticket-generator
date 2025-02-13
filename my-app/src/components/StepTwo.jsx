@@ -150,7 +150,7 @@ const StepTwo = () => {
                       alt="upload"
                       className="opacity-100 group-hover:opacity-100"
                     />
-                    <span className="text-white text-center leading-[150%] opacity-100 group-hover:opacity-100">
+                    <span className="text-white text-center leading-[150%] opacity-100 group-hover:opacity-100 sm:w-[192px]">
                       Drag & drop or click to upload
                     </span>
                   </>
@@ -242,7 +242,7 @@ const StepTwo = () => {
           <button
             type="button"
             onClick={handlePrevStep}
-            className="w-full h-[48px] rounded-lg border border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#24A0B5] hover:text-white"
+            className="w-full h-[48px] rounded-lg border border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#12464E] hover:text-white"
             ref={backButtonRef}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
