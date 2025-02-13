@@ -13,7 +13,7 @@ const Header = () => {
           About Project
         </span>
       </div>
-      <div className="flex justify-center items-center px-4 sm:px-6 py-3 sm:py-4 gap-2 w-[141px] h-[44px] sm:w-[169px] sm:h-[52px] bg-white border border-[rgba(213,234,0,0.1)] rounded-[12px] ">
+      <div className="flex justify-center items-center px-4 sm:px-6 py-3 sm:py-4 gap-2 w-[145px] h-[44px] sm:w-[169px] sm:h-[52px] bg-white border border-[rgba(213,234,0,0.1)] rounded-[12px] ">
         <span className=" font-normal text-[14px] sm:text-[16px] leading-[20px]  uppercase text-[#0A0C11]">
           My Tickets
         </span>
