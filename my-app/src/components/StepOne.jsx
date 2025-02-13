@@ -8,15 +8,15 @@ const StepOne = () => {
     ticketCount,
     setTicketCount,
     previousStep,
-    nextStep
+    nextStep,
   } = useTicket();
+
   const firstRadioRef = useRef(null);
   const selectRef = useRef(null);
   const cancelButtonRef = useRef(null);
   const submitButtonRef = useRef(null);
   const [selectedButton, setSelectedButton] = useState(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  
 
   const handleRadioKeyDown = (event, index) => {
     switch (event.key) {
@@ -52,7 +52,7 @@ const StepOne = () => {
         event.preventDefault();
         if (!isSelectOpen) {
           setIsSelectOpen(true);
-          select.size = 5; // Show 5 options when opened
+          select.size = 5;
         } else {
           setIsSelectOpen(false);
           select.size = 1;
@@ -66,7 +66,7 @@ const StepOne = () => {
             select.selectedIndex = currentIndex + 1;
           }
         } else {
-          cancelButtonRef.current.focus(); // Move to first button when select is closed
+          cancelButtonRef.current.focus();
         }
         break;
       case "ArrowUp":
@@ -91,11 +91,11 @@ const StepOne = () => {
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
-    setTicketCount(selectedValue); // Update ticket count state
+    setTicketCount(selectedValue);
     if (isSelectOpen) {
       setIsSelectOpen(false);
       selectRef.current.size = 1;
-      cancelButtonRef.current.focus(); // Move to first button after selection
+      cancelButtonRef.current.focus();
     }
   };
 
@@ -131,7 +131,7 @@ const StepOne = () => {
       price: "Free",
       available: "20/52",
     },
-    { id: "vip", name: "VIP Access", price: "$150", available: "20/52" },
+    { id: "vip", name: "VIP Access", price: "$50", available: "20/52" },
     { id: "vvip", name: "VVIP Access", price: "$150", available: "20/52" },
   ];
 

@@ -1,12 +1,13 @@
 import { useTicket } from "./context/TicketContext";
+
 const Ticket = () => {
   const { name, email, selectedTicket, ticketCount, request, file } =
     useTicket();
 
   return (
     <div className="flex flex-col p-[32px] items-center justify-center">
-      <div className="ticket-box pb-[22px] w-[300px] h-[600px] flex flex-col items-center justify-center bg-[#072C31] border border-[#24A0B5]">
-        <div className="h-[489px] w-full relative">
+      <div className="ticket-box pb-[22px] w-[300px] h-[600px] flex flex-col items-center justify-center ">
+        <div className="h-[489px] w-full">
           <div className="mx-auto gap-[20px] mt-[20px] max-w-[260px] max-h-[446px] flex flex-col items-center p-[14px] bg-[rgba(3,30,33,0.1)] border border-[#24A0B5] backdrop-blur-[2px] rounded-[16px]">
             <div className="flex flex-col items-center">
               <h2 className="text-white font-roadRage text-[34px]">
@@ -75,9 +76,9 @@ const Ticket = () => {
               </div>
             </div>
           </div>
-          {/* <div className="absolute w-[30px] h-[30px] rounded-full top-[-10px] bg-[#041E23]  left-[-10px] border-r-[1px] rotate-45 border-[#24A0B5]"></div> */}
         </div>
-        <div className="w-full h-[109px] flex items-center justify-center">
+
+        <div className="w-full pt-[19px] flex items-center justify-center">
           <img src="./barcode.svg" className="w-[236px] h-[68px] mx-auto" />
         </div>
       </div>

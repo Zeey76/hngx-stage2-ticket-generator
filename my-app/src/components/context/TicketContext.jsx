@@ -95,6 +95,7 @@ export const TicketProvider = ({ children }) => {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("request");
+    localStorage.removeItem("currentStep");
   };
 
   const value = {
@@ -118,14 +119,14 @@ export const TicketProvider = ({ children }) => {
     nextStep,
     previousStep,
     resetBooking,
-
-    // Validation functions
     validateStepOne,
     validateStepTwo,
   };
 
   return (
-    <TicketContext.Provider value={value}>{children}</TicketContext.Provider>
+    <TicketContext.Provider value={value}>
+        {children}
+    </TicketContext.Provider>
   );
 };
 

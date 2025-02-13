@@ -28,21 +28,19 @@ const StepTwo = () => {
   const [isUploading, setIsUploading] = useState(false); // Track upload state
 
   // Cloudinary configuration
-  const cloudName = "dfx0ekbue"; // Replace with your Cloudinary cloud name
-  const uploadPreset = "Ticket Avatar"; // Replace with your Upload Preset name
+  const cloudName = "dfx0ekbue"; 
+  const uploadPreset = "Ticket Avatar"; 
 
   const handleFileChange = async (event) => {
     const uploadedFile = event.target.files[0];
     if (uploadedFile) {
-      setIsUploading(true); // Start loading
+      setIsUploading(true); 
 
-      // Create a FormData object
       const formData = new FormData();
       formData.append("file", uploadedFile);
       formData.append("upload_preset", uploadPreset);
 
       try {
-        // Upload the image to Cloudinary
         const response = await fetch(
           `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
           {
@@ -58,7 +56,6 @@ const StepTwo = () => {
         const data = await response.json();
         const fileURL = data.secure_url; // Get the uploaded image URL
 
-        // Update state and localStorage
         setFile(fileURL);
         localStorage.setItem("file", fileURL);
         setError((prev) => ({ ...prev, file: "" }));
@@ -66,7 +63,7 @@ const StepTwo = () => {
         console.error("Error uploading image:", error);
         setError((prev) => ({ ...prev, file: "Failed to upload image" }));
       } finally {
-        setIsUploading(false); // Stop loading
+        setIsUploading(false); 
       }
     }
   };
@@ -83,8 +80,8 @@ const StepTwo = () => {
   // Handle Enter key to move to the next input
   const handleEnterKey = (event, nextRef) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission
-      nextRef.current.focus(); // Move focus to the next input
+      event.preventDefault(); 
+      nextRef.current.focus(); 
     }
   };
 
@@ -119,7 +116,7 @@ const StepTwo = () => {
               onChange={handleFileChange}
               aria-label="Upload Profile Photo"
               ref={fileInputRef}
-              disabled={isUploading} // Disable input while uploading
+              disabled={isUploading} 
             />
             {file ? (
               <div className="relative w-full h-full group">
@@ -247,8 +244,6 @@ const StepTwo = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
-                // Handle back button click
-                console.log("Back button clicked");
               } else if (e.key === "ArrowUp") {
                 e.preventDefault();
                 specialRequestRef.current.focus(); // Move to textarea
@@ -264,7 +259,7 @@ const StepTwo = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
-                handleSubmit(e); // Trigger form submission
+                handleSubmit(e); 
               } else if (e.key === "ArrowUp") {
                 e.preventDefault();
                 specialRequestRef.current.focus(); // Move to textarea
