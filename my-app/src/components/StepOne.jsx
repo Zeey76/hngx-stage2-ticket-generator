@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTicket } from "./context/TicketContext";
 
 const StepOne = () => {
@@ -17,6 +17,13 @@ const StepOne = () => {
   const submitButtonRef = useRef(null);
   const [selectedButton, setSelectedButton] = useState(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+  // Focus the first radio button on component mount
+  useEffect(() => {
+    if (firstRadioRef.current) {
+      firstRadioRef.current.focus();
+    }
+  }, []); 
 
   const handleRadioKeyDown = (event, index) => {
     switch (event.key) {

@@ -1,5 +1,5 @@
 import { useTicket } from "./context/TicketContext";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const StepTwo = () => {
   const {
@@ -24,17 +24,41 @@ const StepTwo = () => {
   const specialRequestRef = useRef(null);
   const backButtonRef = useRef(null);
   const submitButtonRef = useRef(null);
+  const uploadLabelRef = useRef(null);
 
-  const [isUploading, setIsUploading] = useState(false); // Track upload state
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Focus the upload label on component mount
+  useEffect(() => {
+    if (uploadLabelRef.current) {
+      uploadLabelRef.current.focus();
+    }
+  }, []);
+
+  // Handle Enter key on the upload label
+  const handleUploadLabelKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      fileInputRef.current.click();
+    }
+  };
+
+  // Handle Arrow Down on file upload to move to name input
+  const handleFileUploadArrowDown = (event) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      nameInputRef.current.focus();
+    }
+  };
 
   // Cloudinary configuration
-  const cloudName = "dfx0ekbue"; 
-  const uploadPreset = "Ticket Avatar"; 
+  const cloudName = "dfx0ekbue";
+  const uploadPreset = "Ticket Avatar";
 
   const handleFileChange = async (event) => {
     const uploadedFile = event.target.files[0];
     if (uploadedFile) {
-      setIsUploading(true); 
+      setIsUploading(true);
 
       const formData = new FormData();
       formData.append("file", uploadedFile);
@@ -54,7 +78,7 @@ const StepTwo = () => {
         }
 
         const data = await response.json();
-        const fileURL = data.secure_url; // Get the uploaded image URL
+        const fileURL = data.secure_url;
 
         setFile(fileURL);
         localStorage.setItem("file", fileURL);
@@ -63,7 +87,7 @@ const StepTwo = () => {
         console.error("Error uploading image:", error);
         setError((prev) => ({ ...prev, file: "Failed to upload image" }));
       } finally {
-        setIsUploading(false); 
+        setIsUploading(false);
       }
     }
   };
@@ -80,8 +104,8 @@ const StepTwo = () => {
   // Handle Enter key to move to the next input
   const handleEnterKey = (event, nextRef) => {
     if (event.key === "Enter") {
-      event.preventDefault(); 
-      nextRef.current.focus(); 
+      event.preventDefault();
+      nextRef.current.focus();
     }
   };
 
@@ -95,7 +119,6 @@ const StepTwo = () => {
       prevRef.current.focus();
     }
   };
-
   return (
     <div className="flex flex-col justify-center sm:p-6 gap-8 bg-[#08252B] sm:border sm:border-[#0E464F] sm:rounded-[32px] flex-none self-stretch">
       <div className="flex flex-col p-6 pb-12 gap-2 border-[2px] border-[#07373F] bg-[#052228] h-[328px] rounded-[24px] relative">
@@ -108,6 +131,11 @@ const StepTwo = () => {
             htmlFor="file-upload"
             className="sm:w-[240px] w-[240px] h-[240px] flex flex-col justify-center items-center gap-4 bg-[#0E464F] border-4 border-[#24A0B5]/50 rounded-[32px] cursor-pointer relative group"
             tabIndex="0"
+            ref={uploadLabelRef}
+            onKeyDown={(e) => {
+              handleUploadLabelKeyDown(e);
+              handleFileUploadArrowDown(e);
+            }}
           >
             <input
               type="file"
@@ -116,7 +144,7 @@ const StepTwo = () => {
               onChange={handleFileChange}
               aria-label="Upload Profile Photo"
               ref={fileInputRef}
-              disabled={isUploading} 
+              disabled={isUploading}
             />
             {file ? (
               <div className="relative w-full h-full group">
@@ -178,8 +206,8 @@ const StepTwo = () => {
             aria-describedby={error.name ? "name-error" : undefined}
             ref={nameInputRef}
             onKeyDown={(e) => {
-              handleEnterKey(e, emailInputRef); // Move to email on Enter
-              handleArrowKeys(e, fileInputRef, emailInputRef); // Navigate with arrows
+              handleEnterKey(e, emailInputRef);
+              handleArrowKeys(e, uploadLabelRef, emailInputRef);
             }}
           />
           {error.name && (
@@ -203,8 +231,8 @@ const StepTwo = () => {
             aria-describedby={error.email ? "email-error" : undefined}
             ref={emailInputRef}
             onKeyDown={(e) => {
-              handleEnterKey(e, specialRequestRef); // Move to textarea on Enter
-              handleArrowKeys(e, nameInputRef, specialRequestRef); // Navigate with arrows
+              handleEnterKey(e, specialRequestRef);
+              handleArrowKeys(e, nameInputRef, specialRequestRef);
             }}
           />
           {error.email && (
@@ -225,12 +253,15 @@ const StepTwo = () => {
             className="w-full h-[127px] resize-none overflow-hidden p-[12px] gap-[8px] text-[#FAFAFA] border border-[#07373F] rounded-[12px] bg-transparent focus:outline-none focus:ring-2 focus:ring-[#24A0B5]"
             ref={specialRequestRef}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault(); // Prevent new line in textarea
-                submitButtonRef.current.focus(); // Move to submit button
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                backButtonRef.current.focus();
               } else if (e.key === "ArrowUp") {
                 e.preventDefault();
-                emailInputRef.current.focus(); // Move to email input
+                emailInputRef.current.focus();
+              } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                backButtonRef.current.focus();
               }
             }}
           />
@@ -239,14 +270,15 @@ const StepTwo = () => {
           <button
             type="button"
             onClick={handlePrevStep}
-            className="w-full h-[48px] rounded-lg border border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#12464E] hover:text-white"
+            className="w-full h-[48px] rounded-lg border focus:ring-2 focus:ring-teal-400  border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#12464E] hover:text-white"
             ref={backButtonRef}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "ArrowUp") {
                 e.preventDefault();
-              } else if (e.key === "ArrowUp") {
+                specialRequestRef.current.focus();
+              } else if (e.key === "ArrowDown" || e.key === "ArrowRight") {
                 e.preventDefault();
-                specialRequestRef.current.focus(); // Move to textarea
+                submitButtonRef.current.focus();
               }
             }}
           >
@@ -254,15 +286,15 @@ const StepTwo = () => {
           </button>
           <button
             type="submit"
-            className="w-full h-[48px] bg-[#24A0B5] rounded-lg text-white outline-none hover:bg-[#1a7a8f]"
+            className="w-full h-[48px] bg-[#24A0B5] focus:ring-2 focus:ring-teal-400  rounded-lg text-white outline-none hover:bg-[#1a7a8f]"
             ref={submitButtonRef}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "ArrowUp") {
                 e.preventDefault();
-                handleSubmit(e); 
-              } else if (e.key === "ArrowUp") {
+                specialRequestRef.current.focus();
+              } else if (e.key === "ArrowLeft") {
                 e.preventDefault();
-                specialRequestRef.current.focus(); // Move to textarea
+                backButtonRef.current.focus();
               }
             }}
           >
