@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 
 const StepTwo = () => {
   const {
+    file,
     setFile,
     name,
     setName,
@@ -16,9 +17,6 @@ const StepTwo = () => {
     nextStep,
   } = useTicket();
 
-  const [displayUrl, setDisplayUrl] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
-
   // Refs for inputs
   const fileInputRef = useRef(null);
   const nameInputRef = useRef(null);
@@ -28,21 +26,14 @@ const StepTwo = () => {
   const submitButtonRef = useRef(null);
   const uploadLabelRef = useRef(null);
 
+  const [isUploading, setIsUploading] = useState(false);
+
   // Focus the upload label on component mount
   useEffect(() => {
     if (uploadLabelRef.current) {
       uploadLabelRef.current.focus();
     }
   }, []);
-
-  // Clean up object URL when component unmounts
-  useEffect(() => {
-    return () => {
-      if (displayUrl) {
-        URL.revokeObjectURL(displayUrl);
-      }
-    };
-  }, [displayUrl]);
 
   // Handle Enter key on the upload label
   const handleUploadLabelKeyDown = (event) => {
@@ -68,10 +59,6 @@ const StepTwo = () => {
     const uploadedFile = event.target.files[0];
     if (uploadedFile) {
       setIsUploading(true);
-
-      // Set the local URL immediately for display
-      const localUrl = URL.createObjectURL(uploadedFile);
-      setDisplayUrl(localUrl);
 
       const formData = new FormData();
       formData.append("file", uploadedFile);
@@ -99,9 +86,6 @@ const StepTwo = () => {
       } catch (error) {
         console.error("Error uploading image:", error);
         setError((prev) => ({ ...prev, file: "Failed to upload image" }));
-        // Clean up display URL on error
-        setDisplayUrl("");
-        URL.revokeObjectURL(localUrl);
       } finally {
         setIsUploading(false);
       }
@@ -135,7 +119,6 @@ const StepTwo = () => {
       prevRef.current.focus();
     }
   };
-
   return (
     <div className="flex flex-col justify-center sm:p-6 gap-8 bg-[#08252B] sm:border sm:border-[#0E464F] sm:rounded-[32px] flex-none self-stretch">
       <div className="flex flex-col p-6 pb-12 gap-2 border-[2px] border-[#07373F] bg-[#052228] h-[328px] rounded-[24px] relative">
@@ -163,10 +146,10 @@ const StepTwo = () => {
               ref={fileInputRef}
               disabled={isUploading}
             />
-            {displayUrl ? (
+            {file ? (
               <div className="relative w-full h-full group">
                 <img
-                  src={displayUrl}
+                  src={file}
                   alt="Uploaded"
                   className="w-full h-full object-cover rounded-[32px]"
                 />
@@ -287,7 +270,7 @@ const StepTwo = () => {
           <button
             type="button"
             onClick={handlePrevStep}
-            className="w-full h-[48px] rounded-lg border focus:ring-2 focus:ring-teal-400 border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#12464E] hover:text-white"
+            className="w-full h-[48px] rounded-lg border focus:ring-2 focus:ring-teal-400  border-[#24A0B5] text-[#24A0B5] outline-none hover:bg-[#12464E] hover:text-white"
             ref={backButtonRef}
             onKeyDown={(e) => {
               if (e.key === "ArrowUp") {
@@ -303,7 +286,7 @@ const StepTwo = () => {
           </button>
           <button
             type="submit"
-            className="w-full h-[48px] bg-[#24A0B5] focus:ring-2 focus:ring-teal-400 rounded-lg text-white outline-none hover:bg-[#1a7a8f]"
+            className="w-full h-[48px] bg-[#24A0B5] focus:ring-2 focus:ring-teal-400  rounded-lg text-white outline-none hover:bg-[#1a7a8f]"
             ref={submitButtonRef}
             onKeyDown={(e) => {
               if (e.key === "ArrowUp") {
