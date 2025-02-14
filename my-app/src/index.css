@@ -1,7 +1,7 @@
+@import url("https://db.onlinewebfonts.com/c/1a5c2d8bbd4e28d99a6efcbb9a5b378f?family=JejuMyeongjo");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://db.onlinewebfonts.com/c/1a5c2d8bbd4e28d99a6efcbb9a5b378f?family=JejuMyeongjo");
 
 body {
   background: #02191d;
@@ -70,6 +70,7 @@ select {
       ),
       #02191d;
   }
+  
   .nav-items {
     display: flex;
     flex-direction: row;
