@@ -16,7 +16,6 @@ const StepTwo = () => {
     nextStep,
   } = useTicket();
 
-  // Add state for display URL
   const [displayUrl, setDisplayUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
 
