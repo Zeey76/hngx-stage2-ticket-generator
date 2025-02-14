@@ -119,6 +119,7 @@ const StepTwo = () => {
       prevRef.current.focus();
     }
   };
+
   return (
     <div className="flex flex-col justify-center sm:p-6 gap-8 bg-[#08252B] sm:border sm:border-[#0E464F] sm:rounded-[32px] flex-none self-stretch">
       <div className="flex flex-col p-6 pb-12 gap-2 border-[2px] border-[#07373F] bg-[#052228] h-[328px] rounded-[24px] relative">
@@ -207,7 +208,13 @@ const StepTwo = () => {
             ref={nameInputRef}
             onKeyDown={(e) => {
               handleEnterKey(e, emailInputRef);
-              handleArrowKeys(e, uploadLabelRef, emailInputRef);
+              if (e.key === "ArrowDown") {
+                e.preventDefault();
+                emailInputRef.current.focus(); // Move to email input div
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                uploadLabelRef.current.focus(); // Move to file upload label
+              }
             }}
           />
           {error.name && (
@@ -220,21 +227,40 @@ const StepTwo = () => {
           <label htmlFor="email" className="text-[#FAFAFA]">
             Enter your email *
           </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-[12px] gap-[8px] border border-[#07373F] text-white rounded-[12px] bg-transparent focus:outline-none focus:ring-2 focus:ring-[#24A0B5]"
-            aria-required="true"
-            aria-invalid={!!error.email}
-            aria-describedby={error.email ? "email-error" : undefined}
+          <div
             ref={emailInputRef}
+            tabIndex="0"
             onKeyDown={(e) => {
-              handleEnterKey(e, specialRequestRef);
-              handleArrowKeys(e, nameInputRef, specialRequestRef);
+              if (e.key === "ArrowDown") {
+                e.preventDefault();
+                specialRequestRef.current.focus();
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                nameInputRef.current.focus();
+              }
             }}
-          />
+            onFocus={() => {
+              emailInputRef.current.querySelector("input").focus();
+            }}
+            className="w-full flex p-[12px] gap-[8px] border border-[#07373F] text-white rounded-[12px] bg-transparent 
+             focus-within:outline-none focus-within:ring-2 focus-within:ring-[#24A0B5] focus-within:border-[#24A0B5]"
+          >
+            <img src="./email-icon.svg" alt="email icon" />
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-transparent w-full outline-none"
+              aria-required="true"
+              aria-invalid={!!error.email}
+              aria-describedby={error.email ? "email-error" : undefined}
+              onKeyDown={(e) => {
+                handleEnterKey(e, specialRequestRef);
+                handleArrowKeys(e, nameInputRef, specialRequestRef);
+              }}
+            />
+          </div>
           {error.email && (
             <p id="email-error" className="text-red-500 absolute right-0">
               {error.email}
@@ -258,7 +284,7 @@ const StepTwo = () => {
                 backButtonRef.current.focus();
               } else if (e.key === "ArrowUp") {
                 e.preventDefault();
-                emailInputRef.current.focus();
+                emailInputRef.current.focus(); // Move to email input div
               } else if (e.key === "ArrowDown") {
                 e.preventDefault();
                 backButtonRef.current.focus();
