@@ -15,6 +15,7 @@ const StepTwo = () => {
     setError,
     previousStep,
     nextStep,
+    selectedTicket
   } = useTicket();
 
   // Refs for inputs
@@ -324,7 +325,7 @@ const StepTwo = () => {
               }
             }}
           >
-            Get My Free Ticket
+            Get My <span className="capitalize">{selectedTicket}</span> Ticket
           </button>
         </div>
       </form>
